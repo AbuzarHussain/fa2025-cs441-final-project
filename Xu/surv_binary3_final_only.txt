@@ -1,0 +1,11 @@
+Binary 3-task (K=7/14/30) Final Summary Only
+
+ADOPTION_ONLY=True, USE_BERT=True, N_RUNS=10
+rows_used=17768, dim=256
+
+K	valAUC_mean	valAUC_std	valF1_mean	valF1_std	testAUC_mean	testAUC_std	testF1_mean	testF1_std	(brier_test_mean)
+7	0.8278	0.0009	0.7113	0.0251	0.8368	0.0017	0.7205	0.0211	0.1614
+14	0.8016	0.0022	0.7024	0.0550	0.7922	0.0020	0.6966	0.0505	0.1914
+30	0.8394	0.0028	0.7266	0.0431	0.8153	0.0019	0.7091	0.0443	0.2276
+
+OVERALL(avg over K): testAUC_mean=0.8148, testF1_mean=0.7087
