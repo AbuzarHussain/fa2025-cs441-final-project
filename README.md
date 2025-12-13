@@ -47,7 +47,7 @@ Source: Champaign Humane Society
 
 Access method: Obtained through direct communication with the organization.
 
-Data acquisition: The dataset was provided after coordination between Duorui Xu and Tief (supervisor at Champaign Humane Society).
+Data acquisition: The dataset was provided after coordination between Duorui Xu and "Tief" Mary Tiefenbrunn, Executive Director at Champaign Humane Society.
 
 This dataset is not publicly downloadable and was shared for research and analysis purposes. It represents an internal export covering dog intake and outcome records from 2021 to 2025.
 
