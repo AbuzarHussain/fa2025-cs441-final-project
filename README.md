@@ -37,7 +37,7 @@ https://www.dallasopendata.com/
 
 The file name reflects the specific date range selected at the time of download (November 1, 2023 through October 31, 2024). The data represent a snapshot of the larger continuously updated dataset maintained by Dallas Animal Services.
 
-2. Champaign Humane Society Data (By Request)
+2. Champaign Humane Society Data (By Request https://www.cuhumane.org/)
 
 File: dogs_intake_outcome_2021_2025.xlsx
 
