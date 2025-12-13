@@ -5,6 +5,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import (accuracy_score, precision_score, recall_score, f1_score, 
                              roc_auc_score, confusion_matrix, classification_report)
+from sklearn.calibration import calibration_curve
 from scipy.stats import randint
 import warnings
 warnings.filterwarnings('ignore')
@@ -251,10 +252,27 @@ for K in K_values:
     
     print(f"\nTEST SET:")
     print(f"  Accuracy:  {test_accuracy:.4f} ({test_accuracy*100:.2f}%)")
+    print(f"  ROC-AUC:   {test_roc_auc:.4f} ({test_roc_auc*100:.2f}%)")
     print(f"  Precision: {test_precision:.4f} ({test_precision*100:.2f}%)")
     print(f"  Recall:    {test_recall:.4f} ({test_recall*100:.2f}%)")
     print(f"  F1 Score:  {test_f1:.4f} ({test_f1*100:.2f}%)")
-    print(f"  ROC-AUC:   {test_roc_auc:.4f} ({test_roc_auc*100:.2f}%)")
+    
+    # Calibration curve (Reliability curve)
+    print(f"\nCALIBRATION CHECK (Reliability Curve):")
+    fraction_of_positives, mean_predicted_value = calibration_curve(
+        y_test, y_test_proba, n_bins=10, strategy='uniform'
+    )
+    
+    # Calculate calibration metrics
+    calibration_error = np.mean(np.abs(fraction_of_positives - mean_predicted_value))
+    print(f"  Mean Calibration Error: {calibration_error:.4f}")
+    print(f"  (Lower is better - measures how well predicted probabilities match actual frequencies)")
+    
+    # Print calibration bins
+    print(f"\n  Calibration Bins (Predicted Probability vs Actual Frequency):")
+    for i in range(len(fraction_of_positives)):
+        print(f"    Bin {i+1}: Predicted={mean_predicted_value[i]:.3f}, Actual={fraction_of_positives[i]:.3f}, "
+              f"Diff={abs(fraction_of_positives[i] - mean_predicted_value[i]):.3f}")
     
     print(f"\nCONFUSION MATRIX (Test Set):")
     print(f"                Predicted")

@@ -10,6 +10,7 @@ from catboost import CatBoostRegressor, CatBoostClassifier, Pool
 from sklearn.metrics import (mean_squared_error, mean_absolute_error, r2_score,
                              accuracy_score, precision_score, recall_score, 
                              f1_score, roc_auc_score, confusion_matrix, classification_report)
+from sklearn.calibration import calibration_curve
 import warnings
 warnings.filterwarnings('ignore')
 
@@ -242,10 +243,10 @@ print(f"  R² Score:     {train_r2:.4f} ({train_r2*100:.2f}%)")
 print(f"  RMSE:         {train_rmse:.2f} days")
 print(f"  MAE:          {train_mae:.2f} days")
 
-print(f"\nTEST SET:")
-print(f"  R² Score:     {test_r2:.4f} ({test_r2*100:.2f}%)")
-print(f"  RMSE:         {test_rmse:.2f} days")
-print(f"  MAE:          {test_mae:.2f} days")
+print(f"\nTEST SET - REGRESSION (LOS) PERFORMANCE:")
+print(f"  R² Score:  {test_r2:.4f} ({test_r2*100:.2f}%)")
+print(f"  RMSE:      {test_rmse:.2f} days")
+print(f"  MAE:       {test_mae:.2f} days")
 
 print(f"\nCROSS-VALIDATION (5-fold):")
 print(f"  Mean R²:      {cv_scores.mean():.4f} ({cv_scores.mean()*100:.2f}%)")
@@ -391,12 +392,30 @@ for K in K_values:
     print(f"  F1 Score:  {train_f1:.4f} ({train_f1*100:.2f}%)")
     print(f"  ROC-AUC:   {train_auc:.4f} ({train_auc*100:.2f}%)")
     
-    print(f"\nTEST SET:")
+    print(f"\nTEST SET - CLASSIFICATION (K-day) PERFORMANCE:")
     print(f"  Accuracy:  {test_acc:.4f} ({test_acc*100:.2f}%)")
+    print(f"  ROC-AUC:   {test_auc:.4f} ({test_auc*100:.2f}%)")
+    print(f"\n  Additional Metrics:")
     print(f"  Precision: {test_prec:.4f} ({test_prec*100:.2f}%)")
     print(f"  Recall:    {test_rec:.4f} ({test_rec*100:.2f}%)")
     print(f"  F1 Score:  {test_f1:.4f} ({test_f1*100:.2f}%)")
-    print(f"  ROC-AUC:   {test_auc:.4f} ({test_auc*100:.2f}%)")
+    
+    # Calibration curve (Reliability curve)
+    print(f"\nCALIBRATION CHECK (Reliability Curve):")
+    fraction_of_positives, mean_predicted_value = calibration_curve(
+        y_test_clf, y_test_proba_clf, n_bins=10, strategy='uniform'
+    )
+    
+    # Calculate calibration metrics
+    calibration_error = np.mean(np.abs(fraction_of_positives - mean_predicted_value))
+    print(f"  Mean Calibration Error: {calibration_error:.4f}")
+    print(f"  (Lower is better - measures how well predicted probabilities match actual frequencies)")
+    
+    # Print calibration bins
+    print(f"\n  Calibration Bins (Predicted Probability vs Actual Frequency):")
+    for i in range(len(fraction_of_positives)):
+        print(f"    Bin {i+1}: Predicted={mean_predicted_value[i]:.3f}, Actual={fraction_of_positives[i]:.3f}, "
+              f"Diff={abs(fraction_of_positives[i] - mean_predicted_value[i]):.3f}")
     
     print(f"\nCONFUSION MATRIX (Test Set):")
     print(f"                Predicted")
