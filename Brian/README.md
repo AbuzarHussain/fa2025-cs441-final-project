@@ -22,14 +22,6 @@ Two complementary tasks are considered:
 
 
 ```mermaid
-mindmap
-root((MLP-based LOS Prediction))
-Data
-Champaign Shelter (Dogs only)
-Tasks
-Regression
-Predict LOS (days)
-Classification
 LOS > 7 days
 LOS > 14 days
 LOS > 30 days
@@ -71,9 +63,6 @@ ROC-AUC
 PR-AUC
 Confusion Matrix
 ```
-
-
----
 
 
 ## Feature Engineering
