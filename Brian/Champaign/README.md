@@ -89,24 +89,23 @@ All encodings are computed **after train/validation/test split** to avoid data l
 
 ### Training Dynamics
 
-![Regression Training Curves](plots/champaign_mlp_regression_training.png)
+#### Regression Training Curves
+![Regression Training Curves](assets/regression_training_curves.png)
 
 - Training loss decreases steadily.
 - Validation loss plateaus early, indicating **overfitting**.
 
-### Predicted vs Actual LOS
-
-![Predicted vs Actual LOS](plots/champaign_mlp_regression_scatter.png)
+#### Predicted vs Actual LOS
+![Predicted vs Actual LOS](assets/regression_pred_vs_actual.png)
 
 - The model systematically **underpredicts long-stay dogs**.
-- This reflects the heavy-tailed distribution of LOS values.
+- This reflects the **heavy-tailed distribution** of LOS values.
 
-### Residual Analysis
-
-![Regression Residual Distribution](plots/champaign_mlp_regression_residuals.png)
+#### Residual Analysis
+![Regression Residual Distribution](assets/regression_residuals.png)
 
 - Errors increase with LOS magnitude.
-- Long-stay cases dominate regression error, motivating alternative losses or log-transformed targets.
+- Long-stay cases dominate regression error → motivates **Huber/MAE** or **log-transform target**.
 
 ---
 
@@ -120,54 +119,48 @@ Binary MLP classifiers are trained for three thresholds:
 
 ### Performance Summary (Test Set)
 
-| Threshold | Accuracy | Precision | Recall | F1-score | ROC-AUC |
-|----------:|---------:|----------:|-------:|---------:|--------:|
-| LOS > 7  | 0.885 | 0.891 | 0.965 | 0.927 | 0.878 |
-| LOS > 14 | 0.766 | 0.751 | 0.911 | 0.823 | 0.882 |
-| LOS > 30 | 0.716 | 0.535 | 0.451 | 0.489 | 0.926 |
-
----
+| Threshold  | Accuracy | Precision | Recall | F1-score | ROC-AUC |
+|-----------|---------:|----------:|-------:|---------:|--------:|
+| LOS > 7   | 0.885    | 0.891     | 0.965  | 0.927    | 0.878   |
+| LOS > 14  | 0.766    | 0.751     | 0.911  | 0.823    | 0.882   |
+| LOS > 30  | 0.716    | 0.535     | 0.451  | 0.489    | 0.926   |
 
 ### ROC & Precision–Recall Curves
 
-![ROC Curves](plots/champaign_mlp_classification_roc.png)
-![Precision–Recall Curves](plots/champaign_mlp_classification_pr.png)
+#### ROC Curves
+![ROC Curves](assets/classification_roc.png)
+
+#### Precision–Recall Curves
+![Precision–Recall Curves](assets/classification_pr.png)
 
 - ROC-AUC remains high across thresholds.
-- PR curves reveal increasing difficulty for identifying **very long-stay dogs**.
-
----
+- PR curves reveal increasing difficulty in identifying **very long-stay dogs**.
 
 ### Confusion Matrix (LOS > 30 days)
-
-![Confusion Matrix k30](plots/cm_k30.png)
+![Confusion Matrix k30](assets/confusion_matrix_k30.png)
 
 - High specificity but low recall.
-- Many long-stay dogs are missed under a default 0.5 threshold.
-
----
+- Many long-stay dogs are missed under a default **0.5** threshold.
 
 ### Threshold Sensitivity Analysis (LOS > 30 days)
-
-![Threshold Sweep](plots/k30_threshold_sweep.png)
+![Threshold Sweep](assets/threshold_sweep_k30.png)
 
 - Lowering the decision threshold significantly improves recall.
-- Demonstrates the trade-off between false positives and missed long-stay dogs.
+- Demonstrates trade-off between false positives and missed long-stay dogs.
 
 ---
 
 ## Key Takeaways
 
 - Extensive feature engineering is critical for tabular LOS prediction.
-- MLP models perform strongly for **short- and medium-term LOS** classification.
+- MLP models perform strongly for short- and medium-term LOS classification.
 - Long-stay prediction (>30 days) is challenging due to class imbalance and weak signal.
 - Threshold tuning is essential for deployment-oriented objectives.
-
----
 
 ## Future Work
 
 - Log-transform or robust loss (Huber/MAE) for regression
 - Class-weighted or focal loss for long-stay classification
 - Time-based data splits for stricter evaluation
-- Integration with text-based representations (e.g., BERT)
+- Integrate text representations (e.g., BERT) when available
+
