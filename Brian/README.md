@@ -25,54 +25,59 @@ Two complementary tasks are considered:
 mindmap
   root((Dog LOS Prediction Pipeline))
     Tasks
-      "Regression (continuous LOS)"
-      "Classification thresholds"
-        "LOS > 7 days"
-        "LOS > 14 days"
-        "LOS > 30 days"
+      Regression
+        Continuous_LOS
+      Classification
+        LOS_gt_7_days
+        LOS_gt_14_days
+        LOS_gt_30_days
     Feature_Engineering
       Demographics
-        "Age (days)"
-        "Log-age"
-        "Age group"
-        "Breed size"
-        "Mixed breed flag"
-        "Has name"
+        Age_days
+        Log_age
+        Age_group
+        Breed_size
+        Mixed_breed_flag
+        Has_name
       Temporal
-        "Month / Weekday"
-        "Season / Quarter"
-        "Holiday & Weekend flags"
-        "Cyclical encoding (sin/cos)"
+        Month
+        Weekday
+        Season
+        Quarter
+        Holiday_flag
+        Weekend_flag
+        Cyclical_encoding_sin_cos
       Encoding
-        "One-hot (categorical)"
-        "Frequency encoding"
-        "Target encoding"
+        One_hot
+        Frequency_encoding
+        Target_encoding
       Interactions
-        "Age × Intake type"
-        "Breed size × Intake type"
+        Age_x_IntakeType
+        BreedSize_x_IntakeType
     Model
       MLP
-        "Linear layers"
-        "ReLU"
-        "BatchNorm"
-        "Dropout"
+        Linear_layers
+        ReLU
+        BatchNorm
+        Dropout
     Training
-      "Adam / AdamW"
-      "LR scheduling"
-      "Early stopping"
-      "Gradient clipping"
+      Adam_or_AdamW
+      LR_scheduling
+      Early_stopping
+      Gradient_clipping
     Evaluation
-      Regression
-        "MAE"
-        "RMSE"
-        "R²"
-      Classification
-        "Accuracy"
-        "F1"
-        "ROC-AUC"
-        "PR-AUC"
-        "Confusion Matrix"
+      Regression_metrics
+        MAE
+        RMSE
+        R2
+      Classification_metrics
+        Accuracy
+        F1
+        ROC_AUC
+        PR_AUC
+        Confusion_matrix
 ```
+
 
 
 ## Feature Engineering
