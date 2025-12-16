@@ -22,46 +22,56 @@ Two complementary tasks are considered:
 
 
 ```mermaid
-LOS > 7 days
-LOS > 14 days
-LOS > 30 days
-Feature Engineering
-Demographics
-Age (days, log-age)
-Age group
-Breed size
-Mixed breed flag
-Has name
-Temporal
-Month / Weekday
-Season / Quarter
-Holiday & Weekend flags
-Cyclical encoding (sin/cos)
-Encoding
-One-hot (categorical)
-Frequency encoding
-Target encoding
-Interactions
-Age × Intake type
-Breed size × Intake type
-Model
-MLP
-BatchNorm
-Dropout
-ReLU
-Training
-Adam / AdamW
-LR scheduling
-Early stopping
-Gradient clipping
-Evaluation
-Regression
-MAE / RMSE / R²
-Classification
-Accuracy / F1
-ROC-AUC
-PR-AUC
-Confusion Matrix
+mindmap
+  root((Dog LOS Prediction Pipeline))
+    Tasks
+      "Regression (continuous LOS)"
+      "Classification thresholds"
+        "LOS > 7 days"
+        "LOS > 14 days"
+        "LOS > 30 days"
+    Feature_Engineering
+      Demographics
+        "Age (days)"
+        "Log-age"
+        "Age group"
+        "Breed size"
+        "Mixed breed flag"
+        "Has name"
+      Temporal
+        "Month / Weekday"
+        "Season / Quarter"
+        "Holiday & Weekend flags"
+        "Cyclical encoding (sin/cos)"
+      Encoding
+        "One-hot (categorical)"
+        "Frequency encoding"
+        "Target encoding"
+      Interactions
+        "Age × Intake type"
+        "Breed size × Intake type"
+    Model
+      MLP
+        "Linear layers"
+        "ReLU"
+        "BatchNorm"
+        "Dropout"
+    Training
+      "Adam / AdamW"
+      "LR scheduling"
+      "Early stopping"
+      "Gradient clipping"
+    Evaluation
+      Regression
+        "MAE"
+        "RMSE"
+        "R²"
+      Classification
+        "Accuracy"
+        "F1"
+        "ROC-AUC"
+        "PR-AUC"
+        "Confusion Matrix"
 ```
 
 
